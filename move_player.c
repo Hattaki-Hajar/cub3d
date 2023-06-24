@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:48:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/22 20:40:21 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/06/24 21:27:52 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	up(t_mlx *m, int speed)
 	double	jump_y;
 	int		l;
 
-	l = m->map.length;
+	l = m->map.tile;
 	jump_y = m->p.y + sin(m->p.angle) * speed;
 	jump_x = m->p.x + cos(m->p.angle) * speed;
 	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
@@ -34,7 +34,7 @@ void	down(t_mlx *m, int speed)
 	double	jump_y;
 	int		l;
 
-	l = m->map.length;
+	l = m->map.tile;
 	jump_y = m->p.y - sin(m->p.angle) * speed;
 	jump_x = m->p.x - cos(m->p.angle) * speed;
 	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
@@ -50,7 +50,7 @@ void	right(t_mlx	*m, int speed)
 	double	jump_y;
 	int		l;
 
-	l = m->map.length;
+	l = m->map.tile;
 	jump_y = m->p.y + sin(m->p.angle + (M_PI / 2)) * speed;
 	jump_x = m->p.x + cos(m->p.angle + (M_PI / 2)) * speed;
 	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
@@ -66,7 +66,7 @@ void	left(t_mlx *m, int speed)
 	double	jump_y;
 	int		l;
 
-	l = m->map.length;
+	l = m->map.tile;
 	jump_y = m->p.y - sin(m->p.angle + (M_PI / 2)) * speed;
 	jump_x = m->p.x - cos(m->p.angle + (M_PI / 2)) * speed;
 	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)]   != '1')
@@ -85,13 +85,13 @@ int	move(void	*t)
 	m = t;
 	if (m->key.w == PRESSED)
 		up(m, speed);
-	else if (m->key.s == PRESSED)
+	if (m->key.s == PRESSED)
 		down(m, speed);
-	else if (m->key.a == PRESSED)
+	if (m->key.a == PRESSED)
 		left(m, speed);
-	else if (m->key.d == PRESSED)
+	if (m->key.d == PRESSED)
 		right(m, speed);
-	else if (m->key.left == PRESSED || m->key.right == PRESSED)
+	if (m->key.left == PRESSED || m->key.right == PRESSED)
 		m->p.angle += m->p.turn * m->p.rot_speed;
 	fx(m);
 	return (0);

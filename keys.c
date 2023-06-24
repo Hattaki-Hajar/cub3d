@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:53:00 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/22 20:16:48 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/06/23 14:53:22 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ void	keys_up2(int key, t_mlx *m)
 {
 	if (key == 124)
 	{
-		m->key.right = UNPRESSED;
+		m->key.right = RELEASED;
 		m->p.turn = 0;
 	}
 	else if (key == 123)
 	{
-		m->key.left = UNPRESSED;
+		m->key.left = RELEASED;
 		m->p.turn = 0;
 	}
 }
@@ -74,18 +74,18 @@ int	keys_up(int key, void	*t)
 	m = t;
 	if (key == 13 || key == 126)
 	{
-		m->key.w = UNPRESSED;
+		m->key.w = RELEASED;
 		m->p.walk = 0;
 	}
 	else if (key == 1 || key == 125)
 	{
-		m->key.s = UNPRESSED;
+		m->key.s = RELEASED;
 		m->p.walk = 0;
 	}
 	else if (key == 0)
-		m->key.a = UNPRESSED;
+		m->key.a = RELEASED;
 	else if (key == 2)
-		m->key.d = UNPRESSED;
+		m->key.d = RELEASED;
 	else
 		keys_up2(key, m);
 	return (0);

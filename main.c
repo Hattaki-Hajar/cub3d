@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/22 20:31:47 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/06/24 22:25:22 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 	}
 }
 
+void	draw_ray(t_mlx	*t, double angle, double x, double y);
 
 void draw_player(double x, double y, t_mlx *t, int size)
 {
 	int		i, j;
-	double	angle;
 
 	i = x - size;
 	while (i < x + size)
@@ -40,12 +40,37 @@ void draw_player(double x, double y, t_mlx *t, int size)
 		}
 		i++;
 	}
-	angle = t->p.angle - (FOV / 2);
-	t->ray = 0;
+}
+
+void reset_rays(t_mlx *m)
+{
+	m->ray = -1;
+	while (++m->ray < NB_RAYS)
+	{
+		m->rays->x_horz_wall = -1;
+		m->rays->y_horz_wall = -1;
+		m->rays->x_vert_wall = -1;
+		m->rays->y_vert_wall = -1;
+	}
+	m->ray = 0;
+}
+
+void	cast_rays(double x, double y, t_mlx *t)
+{
+	double	ray_angle;
+
+	t->p.angle = normalize_angle(t->p.angle);
+	ray_angle = t->p.angle - (FOV / 2);
+	draw_ray(t , ray_angle , x, y);
+	draw_ray(t , t->p.angle + (FOV / 2) , x, y);
+	draw_ray(t , t->p.angle , x, y);
+	reset_rays(t);
 	while (t->ray < NB_RAYS)
 	{
-		draw_line(t, angle, x, y);
-		angle += FOV / NB_RAYS;
+		// draw_ray(t , ray_angle , x, y);
+		define_wall_distance(x, y, t, ray_angle);
+		// draw_line(t, ray_angle, x, y);
+		ray_angle += FOV / NB_RAYS;
 		t->ray++;
 	}
 }
@@ -55,11 +80,11 @@ void	fx(void *t)
 	t_mlx	*m;
 	int		l;
 	m = t;
-	l = m->map.length;
-	int rest_x = (WIN_WIDTH - (m->map.length * m->map.x_elements_nb)) / 2;
-	int rest_y = (WIN_HEIGHT - (m->map.length * m->map.y_elements_nb)) / 2;
+	l = m->map.tile;
+	int rest_x = (WIN_WIDTH - (l * m->map.x_elements_nb)) / 2;
+	int rest_y = (WIN_HEIGHT - (l * m->map.y_elements_nb)) / 2;
 	mlx_clear_window(m->mlx_ptr, m->win_ptr);
-	m->img_ptr = mlx_new_image(m->mlx_ptr, m->map.length * m->map.x_elements_nb, m->map.length * m->map.y_elements_nb);
+	m->img_ptr = mlx_new_image(m->mlx_ptr, l * m->map.x_elements_nb, l * m->map.y_elements_nb);
 	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel, &m->line_length, &m->endian);
 	for (int i = 0; i < m->map.y_elements_nb; i++)
 	{
@@ -72,6 +97,7 @@ void	fx(void *t)
 		}
 	}
 	draw_player(m->p.x, m->p.y, m, 14 / 2);
+	cast_rays(m->p.x, m->p.y, m);
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, rest_x, rest_y);
 	mlx_destroy_image(m->mlx_ptr, m->img_ptr);
 }
@@ -88,6 +114,7 @@ int	destroy(int key)
 	return (0);
 }
 
+
 void	init(t_mlx	*m)
 {
 	m->key.w = 0;
@@ -97,29 +124,32 @@ void	init(t_mlx	*m)
 	m->key.left = 0;
 	m->key.right = 0;
 	if (calc_length_x(m->map.x_elements_nb) < calc_length_y(m->map.y_elements_nb))
-		m->map.length = calc_length_x(m->map.x_elements_nb);
+		m->map.tile = calc_length_x(m->map.x_elements_nb);
 	else
-		m->map.length = calc_length_y(m->map.y_elements_nb);
-	m->p.x = 2 * m->map.length + (m->map.length / 2) - (double)(10 / 3);
-	m->p.y = 2 * m->map.length + (m->map.length / 2) - (double)(10 / 3);
+		m->map.tile = calc_length_y(m->map.y_elements_nb);
+	m->p.x = 2 * m->map.tile + (m->map.tile / 2);
+	m->p.y = 2 * m->map.tile + (m->map.tile / 2);
 	m->p.angle = 270 * (M_PI / 180);
 	m->p.radius = 5;
 	m->p.turn = 0;
 	m->p.turn = 1;
 	m->p.rot_speed = 3 * (M_PI / 180);
+	
 }
 
 int	main(void)
 {
 	t_mlx *m = malloc(sizeof(t_mlx));
 	m->rays = malloc(NB_RAYS * sizeof(t_ray));
-	char *map[6]= { "111111",
-					"101001",
-					"10N101",
-					"111111" };
+	char *map[10]= { "1111111111",
+					 "1010001101",
+					 "10N1000001",
+					 "1000011001",
+					 "1000000001",
+					 "1111111111"};
 	m->map.map = map;
-	m->map.x_elements_nb = 6;
-	m->map.y_elements_nb = 4;
+	m->map.x_elements_nb = 10;
+	m->map.y_elements_nb = 6;
 	init(m);
 	m->mlx_ptr = mlx_init();
 	m->win_ptr =  mlx_new_window(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");

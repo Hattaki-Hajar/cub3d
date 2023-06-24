@@ -2,9 +2,9 @@ SRCS	= $(wildcard *.c)
 
 CC		= cc
 
-# CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror
 
-LFLAGS	=	-lmlx -framework OpenGL -framework AppKit -fsanitize=address -g
+LFLAGS	=	-lmlx -framework OpenGL -framework AppKit -fsanitize=address -g3
 
 NAME	= cub3d
 
