@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:35:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/24 20:48:42 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:00:04 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	draw_line(t_mlx	*t, double angle, double x, double y)
 		// printf("x: %f y: %f wallx: %f wally: %f\n", x, y, t->rays->xwall, t->rays->ywall);
 		while (y2 >= 0 && y2 <= t->rays->ywall && x2 >= 0 && x2 <= t->rays->xwall)
 		{
-			printf("here 2 \n");
 			my_mlx_pixel_put(t, x2, y2, 0x44aa99FF);
 			size++;
 			x2 = x + (cos(t->rays->angle) * size);

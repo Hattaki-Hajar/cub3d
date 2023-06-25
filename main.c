@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/24 22:25:22 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/06/25 18:51:48 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,17 @@ void	cast_rays(double x, double y, t_mlx *t)
 
 	t->p.angle = normalize_angle(t->p.angle);
 	ray_angle = t->p.angle - (FOV / 2);
-	draw_ray(t , ray_angle , x, y);
-	draw_ray(t , t->p.angle + (FOV / 2) , x, y);
-	draw_ray(t , t->p.angle , x, y);
+	// draw_ray(t , ray_angle , x, y);
+	// draw_ray(t , t->p.angle + (FOV / 2) , x, y);
+	// draw_ray(t , t->p.angle , x, y);
 	reset_rays(t);
 	while (t->ray < NB_RAYS)
 	{
 		// draw_ray(t , ray_angle , x, y);
 		define_wall_distance(x, y, t, ray_angle);
 		// draw_line(t, ray_angle, x, y);
-		ray_angle += FOV / NB_RAYS;
+		ray_angle = normalize_angle(ray_angle + (FOV / NB_RAYS));
+		draw_ray(t, ray_angle, x, y);
 		t->ray++;
 	}
 }
@@ -129,11 +130,11 @@ void	init(t_mlx	*m)
 		m->map.tile = calc_length_y(m->map.y_elements_nb);
 	m->p.x = 2 * m->map.tile + (m->map.tile / 2);
 	m->p.y = 2 * m->map.tile + (m->map.tile / 2);
-	m->p.angle = 270 * (M_PI / 180);
+	m->p.angle = normalize_angle(270 * (M_PI / 180));
 	m->p.radius = 5;
 	m->p.turn = 0;
 	m->p.turn = 1;
-	m->p.rot_speed = 3 * (M_PI / 180);
+	m->p.rot_speed = 2 * (M_PI / 180);
 	
 }
 
