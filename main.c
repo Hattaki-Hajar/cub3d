@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/25 18:51:48 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/06 20:11:10 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
-
-void	draw_ray(t_mlx	*t, double angle, double x, double y);
 
 void draw_player(double x, double y, t_mlx *t, int size)
 {
@@ -42,51 +40,17 @@ void draw_player(double x, double y, t_mlx *t, int size)
 	}
 }
 
-void reset_rays(t_mlx *m)
-{
-	m->ray = -1;
-	while (++m->ray < NB_RAYS)
-	{
-		m->rays->x_horz_wall = -1;
-		m->rays->y_horz_wall = -1;
-		m->rays->x_vert_wall = -1;
-		m->rays->y_vert_wall = -1;
-	}
-	m->ray = 0;
-}
-
-void	cast_rays(double x, double y, t_mlx *t)
-{
-	double	ray_angle;
-
-	t->p.angle = normalize_angle(t->p.angle);
-	ray_angle = t->p.angle - (FOV / 2);
-	// draw_ray(t , ray_angle , x, y);
-	// draw_ray(t , t->p.angle + (FOV / 2) , x, y);
-	// draw_ray(t , t->p.angle , x, y);
-	reset_rays(t);
-	while (t->ray < NB_RAYS)
-	{
-		// draw_ray(t , ray_angle , x, y);
-		define_wall_distance(x, y, t, ray_angle);
-		// draw_line(t, ray_angle, x, y);
-		ray_angle = normalize_angle(ray_angle + (FOV / NB_RAYS));
-		draw_ray(t, ray_angle, x, y);
-		t->ray++;
-	}
-}
-
 void	fx(void *t)
 {
 	t_mlx	*m;
 	int		l;
 	m = t;
-	l = m->map.tile;
-	int rest_x = (WIN_WIDTH - (l * m->map.x_elements_nb)) / 2;
-	int rest_y = (WIN_HEIGHT - (l * m->map.y_elements_nb)) / 2;
+	l = m->map.tile * SCALE_FACTOR;
 	mlx_clear_window(m->mlx_ptr, m->win_ptr);
-	m->img_ptr = mlx_new_image(m->mlx_ptr, l * m->map.x_elements_nb, l * m->map.y_elements_nb);
-	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel, &m->line_length, &m->endian);
+	m->map.minimap = mlx_new_image(m->mlx_ptr, l * m->map.x_elements_nb,
+				l * m->map.y_elements_nb);
+	m->addr = mlx_get_data_addr(m->map.minimap, &m->bits_per_pixel,
+			&m->line_length, &m->endian);
 	for (int i = 0; i < m->map.y_elements_nb; i++)
 	{
 		for (int j = 0; j < m->map.x_elements_nb; j++)
@@ -97,10 +61,17 @@ void	fx(void *t)
 				draw_square(j * l, i * l, m, 0x808080, l);
 		}
 	}
-	draw_player(m->p.x, m->p.y, m, 14 / 2);
+	draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m,2);
 	cast_rays(m->p.x, m->p.y, m);
-	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, rest_x, rest_y);
+	// draw_square(100, 100, m, 0xFFFFFF, 10);
+	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH,WIN_HEIGHT);
+	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel,
+			&m->line_length, &m->endian);
+	draw_walls(m);
+	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, 0, 0);
 	mlx_destroy_image(m->mlx_ptr, m->img_ptr);
+	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.minimap, 10, 10);
+	mlx_destroy_image(m->mlx_ptr, m->map.minimap);
 }
 
 int ext(void)
@@ -135,7 +106,6 @@ void	init(t_mlx	*m)
 	m->p.turn = 0;
 	m->p.turn = 1;
 	m->p.rot_speed = 2 * (M_PI / 180);
-	
 }
 
 int	main(void)

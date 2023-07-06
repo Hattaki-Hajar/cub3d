@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:48:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/25 15:00:38 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/05 15:44:48 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ int	move(void	*t)
 	if (m->key.d == PRESSED)
 		right(m, speed);
 	if (m->key.left == PRESSED || m->key.right == PRESSED)
-	{
 		m->p.angle += m->p.turn * m->p.rot_speed;
-		printf("%f\n", m->p.angle * (180 / M_PI));
-	}
 	fx(m);
 	return (0);
 }

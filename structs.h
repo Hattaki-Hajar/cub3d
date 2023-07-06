@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/06/24 20:57:02 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/06 15:50:05 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@
 # define	NB_RAYS WIN_WIDTH
 # define	PRESSED 1
 # define	RELEASED 0
-
+# define	SCALE_FACTOR 0.2
+# define	WALL_WIDTH 1
+// ! remove this pls 
+static int   color_s;
+//------------------------------------------------------
 typedef struct s_player
 {
 	double	x;
@@ -56,6 +60,7 @@ typedef struct s_map
 	int		y_elements_nb;
 	int		tile;
 	char	**map;
+	void	*minimap;
 }	t_map;
 
 typedef	struct s_keys
