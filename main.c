@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/06 20:11:10 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/07 18:11:03 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	init(t_mlx	*m)
 		m->map.tile = calc_length_y(m->map.y_elements_nb);
 	m->p.x = 2 * m->map.tile + (m->map.tile / 2);
 	m->p.y = 2 * m->map.tile + (m->map.tile / 2);
-	m->p.angle = normalize_angle(270 * (M_PI / 180));
+	m->p.angle = 270 * (M_PI / 180);
 	m->p.radius = 5;
 	m->p.turn = 0;
 	m->p.turn = 1;

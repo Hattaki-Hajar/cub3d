@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 17:00:27 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/06 19:37:27 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/07 15:49:33 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ double	normalize_angle(double	angle)
 {
 	if (angle < 0 || angle > 2 * M_PI)
 	{
-		angle = fmod(angle, (2 * M_PI));
+		// angle = fmod(angle, (2 * M_PI));
 		if (angle < 0)
 			angle += (2 * M_PI);
+		if (angle > 2 * M_PI)
+			angle -= 2 * M_PI;
 	}
 	return (angle);
 }

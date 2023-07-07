@@ -4,18 +4,18 @@
 
 void	render_walls(t_mlx *m, double wall_height, int colomn)
 {
-	int		j;
+	double	j;
 	int	init;
 
 	j = 0;
 	init = (WIN_HEIGHT - wall_height) / 2;
 	if (!(init >= 0 && init <= WIN_HEIGHT))
 		init = 0;
-	while (j < WIN_HEIGHT && j < (int)wall_height)
+	while (j < WIN_HEIGHT && j < wall_height)
 	{
 		if (init >= 0 && init <= WIN_HEIGHT && colomn >= 0 && colomn <= WIN_WIDTH)
 			my_mlx_pixel_put(m, colomn, init, 0x30FFFFFF);
-		j++;
+		j+=1;
 		init++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 20:10:38 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/06 20:11:04 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/07 16:18:22 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	cast_rays(double x, double y, t_mlx *m)
 
 	if (m->p.angle < 0 || m->p.angle > 2 * M_PI)
 		m->p.angle = normalize_angle(m->p.angle);
-	// printf("player : %f => %f\n\r", m->p.angle, m->p.angle * (180 / (M_PI)));
-	// printf("distance: %f\n", m->rays[NB_RAYS - 1].wall_distance);
 	ray_angle = m->p.angle - (FOV / 2);
 	reset_rays(m);
 	while (m->ray < NB_RAYS)
 	{
+		ray_angle = normalize_angle(ray_angle);
 		define_wall_distance(x, y, m, ray_angle);
+		m->rays[m->ray].wall_distance *= cos(ray_angle - m->p.angle);
 		draw_ray(m, ray_angle, SCALE_FACTOR * x, SCALE_FACTOR * y);
 		m->ray++;
 		ray_angle += (FOV / NB_RAYS);
