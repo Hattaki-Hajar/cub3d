@@ -6,13 +6,13 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 20:10:38 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 16:18:22 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:03:47 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void reset_rays(t_mlx *m)
+void	reset_rays(t_mlx *m)
 {
 	m->ray = -1;
 	while (++m->ray < NB_RAYS)
@@ -24,7 +24,8 @@ void reset_rays(t_mlx *m)
 	}
 	m->ray = 0;
 }
-void	cast_rays(double x, double y, t_mlx *m)
+
+void	cast_rays(t_mlx *m)
 {
 	double	ray_angle;
 
@@ -32,12 +33,13 @@ void	cast_rays(double x, double y, t_mlx *m)
 		m->p.angle = normalize_angle(m->p.angle);
 	ray_angle = m->p.angle - (FOV / 2);
 	reset_rays(m);
+	// draw_ray(m, m->p.angle, SCALE_FACTOR * m->p.x, SCALE_FACTOR * m->p.y);
 	while (m->ray < NB_RAYS)
 	{
 		ray_angle = normalize_angle(ray_angle);
-		define_wall_distance(x, y, m, ray_angle);
+		define_wall_distance(m, ray_angle);
 		m->rays[m->ray].wall_distance *= cos(ray_angle - m->p.angle);
-		draw_ray(m, ray_angle, SCALE_FACTOR * x, SCALE_FACTOR * y);
+		// draw_ray(m, ray_angle, SCALE_FACTOR * m->p.x, SCALE_FACTOR * m->p.y);
 		m->ray++;
 		ray_angle += (FOV / NB_RAYS);
 	}

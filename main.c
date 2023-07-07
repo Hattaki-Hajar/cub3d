@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 18:11:03 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:26:47 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,9 @@ void	fx(void *t)
 				l * m->map.y_elements_nb);
 	m->addr = mlx_get_data_addr(m->map.minimap, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
-	for (int i = 0; i < m->map.y_elements_nb; i++)
-	{
-		for (int j = 0; j < m->map.x_elements_nb; j++)
-		{
-			if (m->map.map[i][j] != '1')
-				draw_square(j * l, i * l, m, 0xFFFFFF, l);
-			else
-				draw_square(j * l, i * l, m, 0x808080, l);
-		}
-	}
+	draw_map(m);
 	draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m,2);
-	cast_rays(m->p.x, m->p.y, m);
-	// draw_square(100, 100, m, 0xFFFFFF, 10);
+	cast_rays(m);
 	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH,WIN_HEIGHT);
 	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
@@ -73,19 +63,6 @@ void	fx(void *t)
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.minimap, 10, 10);
 	mlx_destroy_image(m->mlx_ptr, m->map.minimap);
 }
-
-int ext(void)
-{
-	exit(0);
-}
-
-int	destroy(int key)
-{
-	if (key == 53)
-		exit (0);
-	return (0);
-}
-
 
 void	init(t_mlx	*m)
 {
@@ -124,7 +101,7 @@ int	main(void)
 	init(m);
 	m->mlx_ptr = mlx_init();
 	m->win_ptr =  mlx_new_window(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
-	mlx_hook(m->win_ptr, 17, 0, ext, 0);
+	mlx_hook(m->win_ptr, 17, 0, red_cross, 0);
 	mlx_hook(m->win_ptr, 2, 0, keys_down, m);
 	mlx_loop_hook(m->mlx_ptr, move, m);
 	mlx_hook(m->win_ptr, 3, 0, keys_up, m);
