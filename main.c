@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 19:26:47 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:08:47 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ void draw_player(double x, double y, t_mlx *t, int size)
 	}
 }
 
-void	fx(void *t)
+void	renderer(void *t)
 {
 	t_mlx	*m;
 	int		l;
 	m = t;
 	l = m->map.tile * SCALE_FACTOR;
 	mlx_clear_window(m->mlx_ptr, m->win_ptr);
-	m->map.minimap = mlx_new_image(m->mlx_ptr, l * m->map.x_elements_nb,
+	m->map.map_img = mlx_new_image(m->mlx_ptr, l * m->map.x_elements_nb,
 				l * m->map.y_elements_nb);
-	m->addr = mlx_get_data_addr(m->map.minimap, &m->bits_per_pixel,
+	m->addr = mlx_get_data_addr(m->map.map_img, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
 	draw_map(m);
 	draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m,2);
@@ -60,8 +60,8 @@ void	fx(void *t)
 	draw_walls(m);
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, 0, 0);
 	mlx_destroy_image(m->mlx_ptr, m->img_ptr);
-	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.minimap, 10, 10);
-	mlx_destroy_image(m->mlx_ptr, m->map.minimap);
+	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img, 10, 10);
+	mlx_destroy_image(m->mlx_ptr, m->map.map_img);
 }
 
 void	init(t_mlx	*m)
@@ -98,6 +98,8 @@ int	main(void)
 	m->map.map = map;
 	m->map.x_elements_nb = 10;
 	m->map.y_elements_nb = 6;
+	m->map.floor_color = 0xFFFFFF;
+	m->map.sky_color = 0x93CAED;
 	init(m);
 	m->mlx_ptr = mlx_init();
 	m->win_ptr =  mlx_new_window(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");

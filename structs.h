@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 14:30:51 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:29:17 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # define	RELEASED 0
 # define	SCALE_FACTOR 0.2
 # define	WALL_WIDTH 1
-// ! remove this pls 
-static int   color_s;
-//------------------------------------------------------
+# define	HORIZONTAL 0
+# define	VERTICAL 1
+
 typedef struct s_player
 {
 	double	x;
@@ -45,6 +45,7 @@ typedef	struct	s_ray
 	double	angle;
 	int		down;
 	int		right;
+	int		hit;
 	double	wall_distance;
 	double	xwall;
 	double	ywall;
@@ -61,6 +62,9 @@ typedef struct s_map
 	int		tile;
 	char	**map;
 	void	*minimap;
+	void	*map_img;
+	int		floor_color;
+	int		sky_color;
 }	t_map;
 
 typedef	struct s_keys

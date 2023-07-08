@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 22:17:46 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 19:06:01 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:27:33 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ void	first_hit(t_mlx *m, double vert_distance, double horz_distance)
 		m->rays[m->ray].xwall = m->rays[m->ray].x_vert_wall;
 		m->rays[m->ray].ywall = m->rays[m->ray].y_vert_wall;
 		m->rays[m->ray].wall_distance = vert_distance;
+		m->rays[m->ray].hit = VERTICAL;
 	}
 	else
 	{
 		m->rays[m->ray].xwall = m->rays[m->ray].x_horz_wall;
 		m->rays[m->ray].ywall = m->rays[m->ray].y_horz_wall;
 		m->rays[m->ray].wall_distance = horz_distance;
+		m->rays[m->ray].hit = HORIZONTAL;
 	}
 }
 

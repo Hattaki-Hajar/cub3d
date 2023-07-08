@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:35:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 19:26:06 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/08 20:06:47 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,3 +91,30 @@ void	draw_map(t_mlx	*m)
 		j++;
 	}
 }
+
+// void	draw_mini_map(t_mlx	*m)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	size;
+
+// 	j = m->p.y - 10;
+// 	if (j < 0)
+// 		j = 0;
+// 	size = m->map.tile * SCALE_FACTOR;
+// 	while (j <= 20 && j < WIN_HEIGHT)
+// 	{
+// 		i = m->p.x - 10;
+// 		if (i <= 20 && i < WIN_WIDTH)
+// 		{
+// 			if (m->map.map[j][i] != '1')
+// 				draw_square(i * size, j * size, m, 0xFFFFFF);
+// 			else
+// 				draw_square(i * size, j * size, m, 0x808080);
+// 			if (m->map[j][i] == 'N')
+// 				draw_player(i, j, m, size / 2);
+// 			i++;
+// 		}
+// 		j++;
+// 	}
+// }

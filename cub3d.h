@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:38:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 19:24:33 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:45:36 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	calc_wall_distance(t_mlx *m, double angle, double x, double y);
 
 /*--------------rendering-------------*/
 void	cast_rays(t_mlx *m);
-void	fx(void *t);
+void	renderer(void *t);
 
 /*---------------hooks---------------*/
 int		keys_down(int key, void	*t);
@@ -45,6 +45,7 @@ void	draw_line(t_mlx	*m, double angle, double x, double y);
 void	draw_ray(t_mlx	*m, double angle, double x, double y);
 void	draw_walls(t_mlx	*m);
 void	draw_map(t_mlx	*m);
+void	draw_player(double x, double y, t_mlx *t, int size);
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
 
 /*----------window_managment----------*/
