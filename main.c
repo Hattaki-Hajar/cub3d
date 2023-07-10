@@ -6,26 +6,16 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/08 20:08:47 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:14:20 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
+void	draw_player(double x, double y, t_mlx *t, int size)
 {
-	char	*dst;
-
-	if ((x >= 0 && x <= WIN_WIDTH) || (y >= 0 && y <= WIN_HEIGHT))
-	{
-		dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
-	}
-}
-
-void draw_player(double x, double y, t_mlx *t, int size)
-{
-	int		i, j;
+	int	i;
+	int	j;
 
 	i = x - size;
 	while (i < x + size)
@@ -44,17 +34,19 @@ void	renderer(void *t)
 {
 	t_mlx	*m;
 	int		l;
+
 	m = t;
 	l = m->map.tile * SCALE_FACTOR;
 	mlx_clear_window(m->mlx_ptr, m->win_ptr);
 	m->map.map_img = mlx_new_image(m->mlx_ptr, l * m->map.x_elements_nb,
-				l * m->map.y_elements_nb);
+			l * m->map.y_elements_nb);
 	m->addr = mlx_get_data_addr(m->map.map_img, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
 	draw_map(m);
-	draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m,2);
+	// draw_mini_map(m);
+	draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m, 2);
 	cast_rays(m);
-	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH,WIN_HEIGHT);
+	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
 	draw_walls(m);
@@ -72,7 +64,8 @@ void	init(t_mlx	*m)
 	m->key.d = 0;
 	m->key.left = 0;
 	m->key.right = 0;
-	if (calc_length_x(m->map.x_elements_nb) < calc_length_y(m->map.y_elements_nb))
+	if (calc_length_x(m->map.x_elements_nb)
+		< calc_length_y(m->map.y_elements_nb))
 		m->map.tile = calc_length_x(m->map.x_elements_nb);
 	else
 		m->map.tile = calc_length_y(m->map.y_elements_nb);
@@ -83,25 +76,27 @@ void	init(t_mlx	*m)
 	m->p.turn = 0;
 	m->p.turn = 1;
 	m->p.rot_speed = 2 * (M_PI / 180);
+	m->no.path = "./textures/north.xpm";
+	open_textures(m);
 }
 
 int	main(void)
 {
 	t_mlx *m = malloc(sizeof(t_mlx));
 	m->rays = malloc(NB_RAYS * sizeof(t_ray));
-	char *map[10]= { "1111111111",
-					 "1010001101",
-					 "10N1000001",
-					 "1000011001",
-					 "1000000001",
-					 "1111111111"};
+	char *map[10]= { "1111111111111111111111111",
+					 "1010001100000100000100001",
+					 "10N1000001000000011000001",
+					 "1000011000000000100000101",
+					 "1000000000000000000000001",
+					 "1111111111111111111111111"};
 	m->map.map = map;
-	m->map.x_elements_nb = 10;
+	m->map.x_elements_nb = 25;
 	m->map.y_elements_nb = 6;
 	m->map.floor_color = 0xFFFFFF;
 	m->map.sky_color = 0x93CAED;
-	init(m);
 	m->mlx_ptr = mlx_init();
+	init(m);
 	m->win_ptr =  mlx_new_window(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	mlx_hook(m->win_ptr, 17, 0, red_cross, 0);
 	mlx_hook(m->win_ptr, 2, 0, keys_down, m);

@@ -6,13 +6,13 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 19:16:12 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/07 19:18:12 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/09 13:30:18 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int red_cross(void)
+int	red_cross(void)
 {
 	exit(0);
 }

@@ -6,11 +6,12 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:38:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/08 18:45:36 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/10 16:50:56 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef CUB3D_H
+# define CUB3D_H
 
 # include "./mlx/mlx.h"
 # include <stdio.h>
@@ -22,7 +23,7 @@
 int		calc_length_y(int elements_nb);
 int		calc_length_x(int elements_nb);
 double	calc_distance(double x, double y, double xfinal, double yfinal);
-double	normalize_angle(double	angle);
+double	normalize_angle(double angle);
 void	define_wall_distance(t_mlx *m, double angle);
 void	horizontal_wall_inter(t_mlx *m, double angle);
 void	vertical_wall_inter(t_mlx *m, double angle);
@@ -47,6 +48,17 @@ void	draw_walls(t_mlx	*m);
 void	draw_map(t_mlx	*m);
 void	draw_player(double x, double y, t_mlx *t, int size);
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
+void	draw_mini_map(t_mlx	*m);
 
 /*----------window_managment----------*/
 int		red_cross(void);
+
+/*----------------mlx-----------------*/
+void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
+int		my_mlx_pixel_get(t_mlx *data, int x, int y, int mode);
+
+/*--------------textures--------------*/
+void	put_texture_to_wall(t_mlx *m, double wall_height, int mode);
+void	open_textures(t_mlx *m);
+
+#endif

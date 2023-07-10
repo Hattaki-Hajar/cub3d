@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:48:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/08 15:47:49 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/09 21:29:02 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ void	up(t_mlx *m, int speed)
 	l = m->map.tile;
 	jump_y = m->p.y + sin(m->p.angle) * speed;
 	jump_x = m->p.x + cos(m->p.angle) * speed;
-	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
+	if (m->map.map[(int)(m->p.y / l)][(int)(jump_x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(m->p.x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
 	{
 		m->p.y = jump_y;
 		m->p.x = jump_x;
@@ -37,7 +39,9 @@ void	down(t_mlx *m, int speed)
 	l = m->map.tile;
 	jump_y = m->p.y - sin(m->p.angle) * speed;
 	jump_x = m->p.x - cos(m->p.angle) * speed;
-	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
+	if (m->map.map[(int)(m->p.y / l)][(int)(jump_x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(m->p.x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
 	{
 		m->p.y = jump_y;
 		m->p.x = jump_x;
@@ -53,7 +57,9 @@ void	right(t_mlx	*m, int speed)
 	l = m->map.tile;
 	jump_y = m->p.y + sin(m->p.angle + (M_PI / 2)) * speed;
 	jump_x = m->p.x + cos(m->p.angle + (M_PI / 2)) * speed;
-	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
+	if (m->map.map[(int)(m->p.y / l)][(int)(jump_x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(m->p.x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
 	{
 		m->p.y = jump_y;
 		m->p.x = jump_x;
@@ -69,7 +75,9 @@ void	left(t_mlx *m, int speed)
 	l = m->map.tile;
 	jump_y = m->p.y - sin(m->p.angle + (M_PI / 2)) * speed;
 	jump_x = m->p.x - cos(m->p.angle + (M_PI / 2)) * speed;
-	if (m->map.map[(int)(jump_y / l)][(int)(jump_x / l)]   != '1')
+	if (m->map.map[(int)(m->p.y / l)][(int)(jump_x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(m->p.x / l)] != '1'
+		&& m->map.map[(int)(jump_y / l)][(int)(jump_x / l)] != '1')
 	{
 		m->p.y = jump_y;
 		m->p.x = jump_x;
