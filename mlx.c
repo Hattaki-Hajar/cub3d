@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:28:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/09 22:54:55 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/12 23:29:57 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ int my_mlx_pixel_get(t_mlx *m, int x, int y, int mode)
 	char	*dst;
 	int		color;
 
+	
 	color = 0;
+	if (x > WIN_WIDTH || x < 0 || y > WIN_HEIGHT || y < 0)
+		return color;
 	if (mode == NORTH)
 	{
 		dst = m->no.addr + (y * m->no.line_length

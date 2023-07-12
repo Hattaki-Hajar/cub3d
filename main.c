@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/10 16:14:20 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/11 22:33:39 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	init(t_mlx	*m)
 	m->p.turn = 0;
 	m->p.turn = 1;
 	m->p.rot_speed = 2 * (M_PI / 180);
-	m->no.path = "./textures/north.xpm";
+	m->no.path = "./textures/blue_wall.xpm";
 	open_textures(m);
 }
 
