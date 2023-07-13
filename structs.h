@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/10 17:21:56 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 00:18:26 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_player
 	int		walk;
 	double	angle;
 	int		radius;
+	int		speed;
 	double	rot_speed;
 }	t_player;
 
@@ -110,10 +111,7 @@ typedef struct mlx
 	t_keys		key;
 	t_ray		*rays;
 	int			ray;
-	t_textures	no;
-	t_textures	so;
-	t_textures	we;
-	t_textures	ea;
+	t_textures	t[4];
 }	t_mlx;
 
 #endif

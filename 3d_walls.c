@@ -6,32 +6,44 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:20 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/12 23:39:52 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 00:51:00 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// int	get_color(t_mlx	*m, int colomn)
-// {
-// 	int	color;
+int	find_color(t_mlx *m, double wall_height, int j, int mode)
+{
+	double	x_pic;
+	double	y_pic;
+	int		color;
 
-// 	color = 0;
-// 	if (m->rays[colomn].down == -1 && m->rays[colomn].hit == HORIZONTAL)
-// 		color = my_mlx_pixel_get(m, );
-// 	else if (m->rays[colomn].down == 1 && m->rays[colomn].hit == HORIZONTAL)
-// 		color = 0xF2BDC2;
-// 	else if (m->rays[colomn].right == 1 && m->rays[colomn].hit == VERTICAL)
-// 		color = 0xF2D4D7;
-// 	else if (m->rays[colomn].right == -1 && m->rays[colomn].hit == VERTICAL)
-// 		color = 0xF9CCCA;
-// 	return (color);
-// }
+	y_pic = (j / wall_height) * m->t[0].ht;
+	x_pic = floor(m->rays[m->ray].xwall / m->map.tile) * m->map.tile;
+	x_pic  = ((m->rays[m->ray].xwall - x_pic) / m->map.tile) * m->t[0].wt;
+	if (m->rays[m->ray].down == 1)
+		x_pic = m->t[0].wt - x_pic;
+	if (m->rays[m->ray].hit == VERTICAL)
+	{
+		x_pic = floor(m->rays[m->ray].ywall / m->map.tile) * m->map.tile;
+	 	x_pic  = ((m->rays[m->ray].ywall - x_pic) / m->map.tile) * m->t[0].wt;
+		if (m->rays[m->ray].right == -1)
+			x_pic = m->t[0].wt - x_pic;
+	}
+	color = my_mlx_pixel_get(m, x_pic, y_pic, NORTH);
+	return (color);
+}
 
-// int	return_color()
-// {
-	
-// }
+int	choose_texture(t_mlx *m)
+{
+	if (m->rays[m->ray].hit == HORIZONTAL && m->rays[m->ray].down == -1)
+		return (NORTH);
+	else if (m->rays[m->ray].hit == HORIZONTAL && m->rays[m->ray].down == 1)
+		return (SOUTH);
+	else if (m->rays[m->ray].hit == VERTICAL && m->rays[m->ray].right == -1)
+		return (WEST);
+	return (EAST);
+}
 
 void	draw_floor_sky(t_mlx *m, int colomn, int height, int mode)
 {
@@ -53,19 +65,18 @@ void	draw_floor_sky(t_mlx *m, int colomn, int height, int mode)
 		i = height;
 		while (i < WIN_HEIGHT)
 		{
-			my_mlx_pixel_put(m, colomn, i, PURPLE);
+			my_mlx_pixel_put(m, colomn, i, m->map.floor_color);
 			i++;
 		}
 	}
 }
 
-void	render_walls(t_mlx *m, double wall_height, int colomn)
+void	render_walls(t_mlx *m, double wall_height)
 {
 	int		j;
 	int		draw_index;
 	int		color;
-	int		y_pic;
-	int		x_pic;
+	int		mode;
 	int		wall_start;
 
 	j = 0;
@@ -73,96 +84,35 @@ void	render_walls(t_mlx *m, double wall_height, int colomn)
 	if (draw_index < 0)
 		draw_index = 0;
 	if (wall_height > WIN_HEIGHT)
-	{
 		j = (wall_height - WIN_HEIGHT) / 2;
-	}
-	draw_floor_sky(m, colomn, draw_index, SKY);
+	draw_floor_sky(m, m->ray, draw_index, SKY);
 	wall_start = draw_index;
 	while (draw_index < WIN_HEIGHT && draw_index - wall_start < wall_height)
 	{
-		y_pic = (j / wall_height) * m->no.ht;
-		x_pic = floor(m->rays[colomn].xwall / m->map.tile) * m->map.tile;
-		x_pic  = ((m->rays[colomn].xwall - x_pic) / m->map.tile) * m->no.wt;
-		if (m->rays[colomn].hit == VERTICAL)
-		{
-			x_pic = (j / wall_height) * m->no.ht;
-			y_pic = floor(m->rays[colomn].ywall / m->map.tile) * m->map.tile;
-			y_pic = ((m->rays[colomn].ywall - y_pic) / m->map.tile) * m->no.wt;
-		}
-		color = my_mlx_pixel_get(m, x_pic, y_pic, NORTH);
+		mode = choose_texture(m);
+		color = find_color(m, wall_height, j, mode);
 		if (draw_index >= 0 && draw_index <= WIN_HEIGHT
-			&& colomn >= 0 && colomn <= WIN_WIDTH)
-			my_mlx_pixel_put(m, colomn, draw_index, color);
+			&& m->ray >= 0 && m->ray <= WIN_WIDTH)
+			my_mlx_pixel_put(m, m->ray, draw_index, color);
 		j += 1;
 		draw_index++;
 	}
-	draw_floor_sky(m, colomn, draw_index, FLOOR);
+	draw_floor_sky(m, m->ray, draw_index, FLOOR);
 }
 
-// void	render_walls(t_mlx *m, double wall_height, int colomn)
-// {
-// 	int	j;
-// 	int tmp;
-// 	int		init;
-// 	int		color;
-// 	int		y_pic;
-// 	int		x_pic;
-
-// 	j = 0;
-// 	init = (WIN_HEIGHT - wall_height) / 2;
-// 	tmp = wall_height;
-// 	if (init < 0)
-// 		init = 0;
-// 	if (wall_height > WIN_HEIGHT)
-// 	{
-// 		tmp = (wall_height - WIN_HEIGHT) / 2;
-// 	}
-// 	draw_floor_sky(m, colomn, init, SKY);
-// 	// printf("-- > %d, %d , %f\n", init, j, wall_height);
-// 	// if (colomn == NB_RAYS / 2)
-// 	// 	printf("wall height: %f, win height %d\n", wall_height, WIN_HEIGHT);
-// 	while (init < WIN_HEIGHT j)
-// 	{
-// 		// printf("--> wall\n");
-// 		if(j < tmp)
-// 		{
-// 			j++;
-// 			continue;
-// 		}
-// 		y_pic = (j / wall_height) * m->no.ht;
-// 		x_pic = floor(m->rays[colomn].xwall / m->map.tile) * m->map.tile;
-// 		x_pic  = ((m->rays[colomn].xwall - x_pic) / m->map.tile) * m->no.wt;
-// 		if (m->rays[colomn].hit == VERTICAL)
-// 		{
-// 			x_pic = (j / wall_height) * m->no.ht;
-// 			y_pic = floor(m->rays[colomn].ywall / m->map.tile) * m->map.tile;
-// 			y_pic = ((m->rays[colomn].ywall - y_pic) / m->map.tile) * m->no.wt;
-// 		}
-// 		color = my_mlx_pixel_get(m, x_pic, y_pic, NORTH);
-// 		if (init >= 0 && init <= WIN_HEIGHT
-// 			&& colomn >= 0 && colomn <= WIN_WIDTH)
-// 			my_mlx_pixel_put(m, colomn, init, color);
-// 		j += 1;
-// 		init++;
-// 	}
-// 	draw_floor_sky(m, colomn, init, FLOOR);
-// }
-
-
-
-void	draw_walls(t_mlx	*m)
+void	draw_walls(t_mlx *m)
 {
-	int		i;
 	double	projection_distance;
 	double	wall_height;
 
-	i = 0;
+	m->ray = 0;
 	projection_distance = (WIN_WIDTH / 2) / tan(FOV / 2);
-	while (i < NB_RAYS)
+	while (m->ray < NB_RAYS)
 	{
-		wall_height = (m->map.tile / m->rays[i].wall_distance)
+		wall_height = (m->map.tile / m->rays[m->ray].wall_distance)
 			* projection_distance;
-		render_walls(m, wall_height, i);
-		i++;
+		render_walls(m, wall_height);
+		m->ray++;
 	}
+	m->ray = 0;
 }

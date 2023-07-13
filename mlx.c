@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:28:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/12 23:29:57 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 00:19:49 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,11 @@ int my_mlx_pixel_get(t_mlx *m, int x, int y, int mode)
 	int		color;
 
 	
-	color = 0;
-	if (x > WIN_WIDTH || x < 0 || y > WIN_HEIGHT || y < 0)
+	color = PURPLE;
+	if (x > m->t[mode].wt || x < 0 || y >= m->t[mode].ht || y < 0)
 		return color;
-	if (mode == NORTH)
-	{
-		dst = m->no.addr + (y * m->no.line_length
-				+ x * (m->no.bits_per_pixel / 8));
-		color = *(unsigned int *)dst;
-	}
-	else if (mode == SOUTH)
-	{
-		dst = m->so.addr + (y * m->so.line_length
-				+ x * (m->so.bits_per_pixel / 8));
-		color = *(unsigned int *)dst;
-	}
-	else if (mode == EAST)
-	{
-		dst = m->ea.addr + (y * m->ea.line_length
-				+ x * (m->ea.bits_per_pixel / 8));
-		color = *(unsigned int *)dst;
-	}
-	else
-	{
-		dst = m->we.addr + (y * m->we.line_length
-				+ x * (m->we.bits_per_pixel / 8));
-		color = *(unsigned int *)dst;
-	}
+	dst = m->t[mode].addr + (y * m->t[mode].line_length
+			+ x * (m->t[mode].bits_per_pixel / 8));
+	color = *(unsigned int *)dst;
 	return (color);
 }

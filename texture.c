@@ -6,25 +6,55 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:16:14 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/10 17:43:18 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 00:26:01 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	open_textures(t_mlx *m)
-{ //"./textures/poland.xpm"
-	m->no.xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,m->no.path, &m->no.wt, &m->no.ht);
-	// printf(" 2 \n");
-	if(m->no.xpm_ptr == 0)
+void	open_vertical_textures(t_mlx *m)
+{
+	m->t[EAST].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,m->t[EAST].path,
+	&m->t[EAST].wt, &m->t[EAST].ht);
+	if(m->t[EAST].xpm_ptr == 0)
 	{	
-		printf("textures path : %s , is not found\n", m->no.path);
+		printf("textures path : %s , is not found\n", m->t[EAST].path);
 		exit(1);
 	}
-	m->no.addr = mlx_get_data_addr(m->no.xpm_ptr, &m->no.bits_per_pixel, &m->no.line_length, &m->no.endian);
-	// m->no.xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr, m->no.path, m->map.tile, m->map.tile);
-	// m->no.xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr, m->no.path, m->map.tile, m->map.tile);
-	// m->no.xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr, m->no.path, m->map.tile, m->map.tile);
+	m->t[EAST].addr = mlx_get_data_addr(m->t[EAST].xpm_ptr,
+	&m->t[EAST].bits_per_pixel, &m->t[EAST].line_length, &m->t[EAST].endian);
+	m->t[WEST].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,m->t[WEST].path,
+	&m->t[WEST].wt, &m->t[WEST].ht);
+	if(m->t[WEST].xpm_ptr == 0)
+	{	
+		printf("textures path : %s , is not found\n", m->t[WEST].path);
+		exit(1);
+	}
+	m->t[WEST].addr = mlx_get_data_addr(m->t[WEST].xpm_ptr,
+	&m->t[WEST].bits_per_pixel, &m->t[WEST].line_length, &m->t[WEST].endian);
+}
+
+void	open_textures(t_mlx *m)
+{ //"./textures/poland.xpm"
+	m->t[NORTH].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,m->t[NORTH].path,
+	&m->t[NORTH].wt, &m->t[NORTH].ht);
+	if(m->t[NORTH].xpm_ptr == 0)
+	{	
+		printf("textures path : %s , is not found\n", m->t[NORTH].path);
+		exit(1);
+	}
+	m->t[NORTH].addr = mlx_get_data_addr(m->t[NORTH].xpm_ptr,
+	&m->t[NORTH].bits_per_pixel, &m->t[NORTH].line_length, &m->t[NORTH].endian);
+	// m->t[SOUTH].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,m->t[SOUTH].path,
+	// &m->t[SOUTH].wt, &m->t[SOUTH].ht);
+	// if(m->t[SOUTH].xpm_ptr == 0)
+	// {	
+	// 	printf("textures path : %s , is not found\n", m->t[SOUTH].path);
+	// 	exit(1);
+	// }
+	// m->t[SOUTH].addr = mlx_get_data_addr(m->t[SOUTH].xpm_ptr,
+	// &m->t[SOUTH].bits_per_pixel, &m->t[SOUTH].line_length, &m->t[SOUTH].endian);
+	// open_vertical_textures(m);
 }
 
 void	put_texture_to_wall(t_mlx *m, double wall_height, int mode)

@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/11 22:33:39 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 00:18:47 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	renderer(void *t)
 			l * m->map.y_elements_nb);
 	m->addr = mlx_get_data_addr(m->map.map_img, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
-	draw_map(m);
+	// draw_map(m);
 	// draw_mini_map(m);
-	draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m, 2);
+	// draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m, 2);
 	cast_rays(m);
 	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel,
@@ -52,8 +52,8 @@ void	renderer(void *t)
 	draw_walls(m);
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, 0, 0);
 	mlx_destroy_image(m->mlx_ptr, m->img_ptr);
-	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img, 10, 10);
-	mlx_destroy_image(m->mlx_ptr, m->map.map_img);
+	// mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img, 10, 10);
+	// mlx_destroy_image(m->mlx_ptr, m->map.map_img);
 }
 
 void	init(t_mlx	*m)
@@ -75,8 +75,9 @@ void	init(t_mlx	*m)
 	m->p.radius = 5;
 	m->p.turn = 0;
 	m->p.turn = 1;
+	m->p.speed = 5;
 	m->p.rot_speed = 2 * (M_PI / 180);
-	m->no.path = "./textures/blue_wall.xpm";
+	m->t[0].path = "./textures/lain.xpm";
 	open_textures(m);
 }
 
