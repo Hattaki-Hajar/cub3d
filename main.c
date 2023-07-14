@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 00:18:47 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 12:24:03 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,10 @@ void	init(t_mlx	*m)
 	m->p.turn = 1;
 	m->p.speed = 5;
 	m->p.rot_speed = 2 * (M_PI / 180);
-	m->t[0].path = "./textures/lain.xpm";
+	m->t[NORTH].path = "./textures/lain.xpm";
+	m->t[SOUTH].path = "./textures/blue_wall.xpm";
+	m->t[EAST].path = "./textures/north.xpm";
+	m->t[WEST].path = "./textures/shrek.xpm";
 	open_textures(m);
 }
 
