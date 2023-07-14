@@ -6,14 +6,14 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:38:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/10 16:50:56 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 13:18:25 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "./mlx/mlx.h"
+# include "../mlx/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <math.h>
