@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 22:17:46 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/08 20:27:33 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 16:37:56 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	define_wall_distance(t_mlx *m, double angle)
 		vert_distance = calc_distance(m->p.x, m->p.y,
 				m->rays[m->ray].x_vert_wall, m->rays[m->ray].y_vert_wall);
 	first_hit(m, vert_distance, horz_distance);
-	my_mlx_pixel_put(m, m->rays[m->ray].xwall * SCALE_FACTOR,
-		m->rays[m->ray].ywall * SCALE_FACTOR, PURPLE);
 }
 
 // void	define_wall_distance(double x, double y, t_mlx *m, double angle)

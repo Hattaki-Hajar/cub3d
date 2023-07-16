@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 12:24:03 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:09:47 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	draw_player(double x, double y, t_mlx *t, int size)
 		j = y - size;
 		while (j < y + size)
 		{
-			my_mlx_pixel_put(t, i, j, PURPLE);
+			my_mlx_pixel_put(t, i, j, 0x55aa99FF);
 			j++;
 		}
 		i++;
@@ -33,27 +33,23 @@ void	draw_player(double x, double y, t_mlx *t, int size)
 void	renderer(void *t)
 {
 	t_mlx	*m;
-	int		l;
 
 	m = t;
-	l = m->map.tile * SCALE_FACTOR;
 	mlx_clear_window(m->mlx_ptr, m->win_ptr);
-	m->map.map_img = mlx_new_image(m->mlx_ptr, l * m->map.x_elements_nb,
-			l * m->map.y_elements_nb);
+	m->map.map_img = mlx_new_image(m->mlx_ptr, m->map.x_elements_nb * m->map.tile,
+			m->map.y_elements_nb * m->map.tile);
 	m->addr = mlx_get_data_addr(m->map.map_img, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
-	// draw_map(m);
-	// draw_mini_map(m);
-	// draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m, 2);
-	cast_rays(m);
+	draw_map(m);
 	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
+	cast_rays(m);
 	draw_walls(m);
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, 0, 0);
 	mlx_destroy_image(m->mlx_ptr, m->img_ptr);
-	// mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img, 10, 10);
-	// mlx_destroy_image(m->mlx_ptr, m->map.map_img);
+	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img, 0- (m->p.x - 125), 0 -(m->p.y - 75));
+	mlx_destroy_image(m->mlx_ptr, m->map.map_img);
 }
 
 void	init(t_mlx	*m)
@@ -104,6 +100,7 @@ int	main(void)
 	m->win_ptr =  mlx_new_window(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	mlx_hook(m->win_ptr, 17, 0, red_cross, 0);
 	mlx_hook(m->win_ptr, 2, 0, keys_down, m);
+	mlx_hook(m->win_ptr, 6, 0, mouse, m);
 	mlx_loop_hook(m->mlx_ptr, move, m);
 	mlx_hook(m->win_ptr, 3, 0, keys_up, m);
 	mlx_loop(m->mlx_ptr);

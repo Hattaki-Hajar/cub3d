@@ -1,16 +1,16 @@
-SRCS	= $(wildcard ./cub3d/*.c)
+SRCS	= $(wildcard ./cub_3d/*.c)
 
-BSRCS	= $(wildcard ./cub3d_bonus/*.c)
+BSRCS	= $(wildcard ./cub_3d_bonus/*.c)
 
 CC		= cc
 
 CFLAGS	= -Wall -Wextra -Werror
 
-LFLAGS	=	-lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g3
+LFLAGS	=	-lmlx -framework OpenGL -framework AppKit -fsanitize=address -g3
 
-NAME	= Cub3d
+NAME	= Cub3D
 
-BNAME	= Cub3d_bonus
+BNAME	= Cub3D_bonus
 
 MLX_LIB = ./mlx/libmlx.a
 
@@ -25,11 +25,11 @@ bonus	: $(BNAME)
 .c.o	:
 		$(CC) $(CFLAGS) -o $@ -c $<
 
-$(NAME) : $(OBJS)
+$(NAME) : $(OBJS) Makefile
 		make -C ./mlx
 		$(CC) $(CFLAGS) $(MLX_LIB)  $(SRCS) $(LFLAGS) -o $(NAME)
 
-$(BNAME) : $(BOBJS)
+$(BNAME) : $(BOBJS) Makefile
 		make -C ./mlx
 		$(CC) $(CFLAGS) $(MLX_LIB)  $(BSRCS) $(LFLAGS) -o $(BNAME)
 

@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:35:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/09 15:24:20 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/16 17:49:33 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,20 @@ void	draw_square(int x, int y, t_mlx *m, int color)
 	int	i;
 	int	j;
 	int	size;
+	int	init_color;
 
 	i = x;
-	size = m->map.tile * SCALE_FACTOR;
-	while (i < size - 1 + x)
+	init_color = color;
+	size = m->map.tile;
+	while (i < size + x)
 	{
 		j = y;
-		while (j < size - 1 + y)
+		while (j < size + y)
 		{
 			my_mlx_pixel_put(m, i, j, color);
 			j++;
 		}
+		color = init_color;
 		i++;
 	}
 }
@@ -76,46 +79,30 @@ void	draw_map(t_mlx	*m)
 	int	j;
 	int	size;
 
-	j = 0;
-	size = m->map.tile * SCALE_FACTOR;
-	while (j < m->map.y_elements_nb)
-	{
-		i = 0;
-		while (i < m->map.x_elements_nb)
-		{
-			if (m->map.map[j][i] != '1')
-				draw_square(i * size, j * size, m, 0xFFFFFF);
-			else
-				draw_square(i * size, j * size, m, 0x808080);
-			i++;
-		}
-		j++;
-	}
-}
-
-void	draw_mini_map(t_mlx	*m)
-{
-	int	i;
-	int	j;
-	int	size;
-
-	j = m->p.y - 10;
+	j = (m->p.y / m->map.tile) - 3;
 	if (j < 0)
 		j = 0;
 	size = m->map.tile;
-	while (j <= 20 && j < WIN_HEIGHT)
+	while (j < m->map.y_elements_nb)
 	{
-		i = m->p.x - 10;
-		if (i <= 20 && i < WIN_WIDTH)
+		i = (m->p.x / m->map.tile) - 3;
+		if (i < 0)
+			i = 0;
+		while (i < m->map.x_elements_nb)
 		{
-			if (m->map.map[j][i] != '1')
-				draw_square(i * size, j * size, m, 0xFFFFFF);
+			if (i > (m->p.x / m->map.tile) + 3 || j > (m->p.y / m->map.tile) + 3)
+				draw_square(i * size,j* size, m, 0xFFFFFFFF);
 			else
-				draw_square(i * size, j * size, m, 0x808080);
-			// if (m->map.map[j][i] == 'N')
-			// 	draw_player(i, j, m, size / 2);
+			{
+				if (m->map.map[j][i] != '0' && m->map.map[j][i] != 'N')
+					draw_square(i * size,j* size, m, 0x55FF8FAB);
+				else
+					draw_square(i * size, j * size, m, 0x55FFFFFF);
+			}
 			i++;
 		}
 		j++;
 	}
+	draw_player(m->p.x, m->p.y, m, size / 15);
 }
+

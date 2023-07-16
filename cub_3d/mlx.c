@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:28:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 00:19:49 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/14 14:56:32 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int my_mlx_pixel_get(t_mlx *m, int x, int y, int mode)
 	char	*dst;
 	int		color;
 
-	
 	color = PURPLE;
 	if (x > m->t[mode].wt || x < 0 || y >= m->t[mode].ht || y < 0)
 		return color;

@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:38:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 13:18:25 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:10:58 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ int		my_mlx_pixel_get(t_mlx *data, int x, int y, int mode);
 /*--------------textures--------------*/
 void	put_texture_to_wall(t_mlx *m, double wall_height, int mode);
 void	open_textures(t_mlx *m);
+
+/*---------------mouse----------------*/
 
 #endif

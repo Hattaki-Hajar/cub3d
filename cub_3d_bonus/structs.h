@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 00:18:26 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:55:12 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # define WIN_HEIGHT 720
 # define WIN_WIDTH 1290
 # define PLAYER_SIZE 10
+# define MINI_MAP_HEIGHT 150
+# define MINI_MAP_WIDTH 250
 # define PURPLE 0xaa99FF
 # define WHITE 0xFFFFFF
 # define BLACK 0x000000
@@ -24,10 +26,9 @@
 # define PRESSED 1
 # define RELEASED 0
 # define SCALE_FACTOR 0.2
-# define WALL_WIDTH 1
 # define HORIZONTAL 0
 # define VERTICAL 1
-# define SKY	1
+# define SKY 1
 # define FLOOR 0
 # define NORTH 0
 # define SOUTH 1
@@ -70,6 +71,8 @@ typedef struct s_map
 	int		tile;
 	char	**map;
 	void	*minimap;
+	int		x_minimap;
+	int		y_minimap;
 	void	*map_img;
 	int		floor_color;
 	int		sky_color;
@@ -97,6 +100,12 @@ typedef struct s_textures
 	int		wt;
 }	t_textures;
 
+typedef struct s_mouse
+{
+	int	x;
+	int	y;
+}	t_mouse;
+
 typedef struct mlx
 {
 	void		*mlx_ptr;
@@ -111,6 +120,7 @@ typedef struct mlx
 	t_keys		key;
 	t_ray		*rays;
 	int			ray;
+	t_mouse		mouse;
 	t_textures	t[4];
 }	t_mlx;
 
