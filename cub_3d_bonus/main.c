@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/16 18:09:47 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/16 18:48:16 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	init(t_mlx	*m)
 	m->p.y = 2 * m->map.tile + (m->map.tile / 2);
 	m->p.angle = 270 * (M_PI / 180);
 	m->p.radius = 5;
+	m->mouse.x = 0;
+	m->mouse.y = 0;
 	m->p.turn = 0;
 	m->p.turn = 1;
 	m->p.speed = 5;
