@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/16 18:48:16 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:02:03 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,15 @@ void	renderer(void *t)
 	m->addr = mlx_get_data_addr(m->map.map_img, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
 	draw_map(m);
+	cast_rays(m);
 	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
-	cast_rays(m);
 	draw_walls(m);
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, 0, 0);
 	mlx_destroy_image(m->mlx_ptr, m->img_ptr);
-	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img, 0- (m->p.x - 125), 0 -(m->p.y - 75));
+	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img,
+	0 - (m->p.x - 125), 0 - (m->p.y - 75));
 	mlx_destroy_image(m->mlx_ptr, m->map.map_img);
 }
 
@@ -79,6 +80,8 @@ void	init(t_mlx	*m)
 	m->t[SOUTH].path = "./textures/blue_wall.xpm";
 	m->t[EAST].path = "./textures/north.xpm";
 	m->t[WEST].path = "./textures/shrek.xpm";
+	m->door.frame[0].path = "./textures/poland.xpm";
+	m->door.frame[1].path = "./textures/shrek.xpm";
 	open_textures(m);
 }
 
@@ -86,12 +89,13 @@ int	main(void)
 {
 	t_mlx *m = malloc(sizeof(t_mlx));
 	m->rays = malloc(NB_RAYS * sizeof(t_ray));
-	char *map[10]= { "1111111111111111111111111",
-					 "1010001100000100000100001",
-					 "10N1000001000000011000001",
-					 "1000011000000000100000101",
-					 "1000000000000000000000001",
-					 "1111111111111111111111111"};
+	char **map = malloc(6 * sizeof(char *));
+	map[0] = strdup("1111111111111111111111111");
+	map[1] = strdup("1010000100000100000100001");
+	map[2] = strdup("10N1D10001000000011000001");
+	map[3] = strdup("10000000000D0000100000101");
+	map[4] = strdup("1000000000000000000000001");
+	map[5] = strdup("1111111111111111111111111");
 	m->map.map = map;
 	m->map.x_elements_nb = 25;
 	m->map.y_elements_nb = 6;

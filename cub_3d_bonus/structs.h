@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/16 15:55:12 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:01:28 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@
 # define SCALE_FACTOR 0.2
 # define HORIZONTAL 0
 # define VERTICAL 1
-# define SKY 1
 # define FLOOR 0
+# define SKY 1
 # define NORTH 0
 # define SOUTH 1
 # define EAST 2
 # define WEST 3
+# define DOOR 4
 
 typedef struct s_player
 {
@@ -55,6 +56,9 @@ typedef struct s_ray
 	int		down;
 	int		right;
 	int		hit;
+	int		hit_door;
+	int		vert_hit_door;
+	int		horz_hit_door;
 	double	wall_distance;
 	double	xwall;
 	double	ywall;
@@ -86,6 +90,7 @@ typedef struct s_keys
 	int	d;
 	int	left;
 	int	right;
+	int	space;
 }	t_keys;
 
 typedef struct s_textures
@@ -98,13 +103,18 @@ typedef struct s_textures
 	int		endian;
 	int		ht;
 	int		wt;
-}	t_textures;
+}	t_texture;
 
 typedef struct s_mouse
 {
 	int	x;
 	int	y;
 }	t_mouse;
+
+typedef struct s_door
+{
+	t_texture	frame[2];
+}	t_door;
 
 typedef struct mlx
 {
@@ -121,7 +131,8 @@ typedef struct mlx
 	t_ray		*rays;
 	int			ray;
 	t_mouse		mouse;
-	t_textures	t[4];
+	t_texture	t[4];
+	t_door		door;
 }	t_mlx;
 
 #endif

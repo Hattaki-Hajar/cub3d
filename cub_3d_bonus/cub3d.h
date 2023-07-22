@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:38:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/16 18:50:17 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/22 18:38:09 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 # include "../mlx/mlx.h"
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <math.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include <pthread.h>
 # include "structs.h"
 
 /*------------calculations------------*/
@@ -55,7 +59,7 @@ int		red_cross(void);
 
 /*----------------mlx-----------------*/
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color);
-int		my_mlx_pixel_get(t_mlx *data, int x, int y, int mode);
+int		my_mlx_pixel_get(t_texture *t, int x, int y);
 
 /*--------------textures--------------*/
 void	put_texture_to_wall(t_mlx *m, double wall_height, int mode);
@@ -63,5 +67,9 @@ void	open_textures(t_mlx *m);
 
 /*---------------mouse----------------*/
 int		mouse(int x, int y, void *p);
+
+/*---------------door-----------------*/
+void	door(t_mlx *m);
+int		find_door_color(t_mlx *m, int index, double wall_height, int frame);
 
 #endif

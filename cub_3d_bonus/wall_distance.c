@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 22:17:46 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/15 23:37:24 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:16:16 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	first_hit(t_mlx *m, double vert_distance, double horz_distance)
 		m->rays[m->ray].xwall = m->rays[m->ray].x_vert_wall;
 		m->rays[m->ray].ywall = m->rays[m->ray].y_vert_wall;
 		m->rays[m->ray].wall_distance = vert_distance;
+		m->rays[m->ray].hit_door = m->rays[m->ray].vert_hit_door;
 		m->rays[m->ray].hit = VERTICAL;
 	}
 	else
@@ -26,6 +27,7 @@ void	first_hit(t_mlx *m, double vert_distance, double horz_distance)
 		m->rays[m->ray].xwall = m->rays[m->ray].x_horz_wall;
 		m->rays[m->ray].ywall = m->rays[m->ray].y_horz_wall;
 		m->rays[m->ray].wall_distance = horz_distance;
+		m->rays[m->ray].hit_door = m->rays[m->ray].horz_hit_door;
 		m->rays[m->ray].hit = HORIZONTAL;
 	}
 }
@@ -52,8 +54,9 @@ void	define_wall_distance(t_mlx *m, double angle)
 		vert_distance = calc_distance(m->p.x, m->p.y,
 				m->rays[m->ray].x_vert_wall, m->rays[m->ray].y_vert_wall);
 	first_hit(m, vert_distance, horz_distance);
-	my_mlx_pixel_put(m, m->rays[m->ray].xwall * SCALE_FACTOR,
-		m->rays[m->ray].ywall * SCALE_FACTOR, 0xFE036A);
+	if (m->rays[m->ray].xwall / m->map.tile <= (m->p.x / m->map.tile) + 3
+		&& m->rays[m->ray].ywall / m->map.tile <= (m->p.y / m->map.tile) + 3)
+		my_mlx_pixel_put(m, m->rays[m->ray].xwall, m->rays[m->ray].ywall, 0xFF007F);
 }
 
 // void	define_wall_distance(double x, double y, t_mlx *m, double angle)

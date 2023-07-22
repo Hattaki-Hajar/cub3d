@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:38:11 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/09 20:57:35 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:18:08 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ double	calc_horz_steps(t_mlx *m, double angle, double *xstep, double *ystep)
 		yin += m->map.tile;
 	else
 		*ystep *= -1;
-	// if (m->rays[m->ray].down == -1)
-	// 	yin--;
 	return (yin);
 }
 
@@ -52,6 +50,15 @@ void	horizontal_wall_inter(t_mlx *m, double angle)
 		if (m->map.map[(int)((yin + i) / m->map.tile)][(int)(xin / m->map.tile)]
 		== '1')
 		{
+			m->rays[m->ray].horz_hit_door = 0;
+			m->rays[m->ray].x_horz_wall = xin;
+			m->rays[m->ray].y_horz_wall = yin;
+			return ;
+		}
+		if (m->map.map[(int)((yin + i) / m->map.tile)][(int)(xin / m->map.tile)]
+		== 'D')
+		{
+			m->rays[m->ray].horz_hit_door = 1;
 			m->rays[m->ray].x_horz_wall = xin;
 			m->rays[m->ray].y_horz_wall = yin;
 			return ;
@@ -72,8 +79,6 @@ double	calc_vert_steps(t_mlx *m, double angle, double *xstep, double *ystep)
 		xin += m->map.tile;
 	else
 		*xstep *= -1;
-	// if (m->rays[m->ray].right == -1)
-	// 	xin--;
 	return (xin);
 }
 
@@ -101,6 +106,15 @@ void	vertical_wall_inter(t_mlx *m, double angle)
 		if (m->map.map[(int)(yin / m->map.tile)][(int)((xin + i) / m->map.tile)]
 		== '1')
 		{
+			m->rays[m->ray].vert_hit_door = 0;
+			m->rays[m->ray].x_vert_wall = xin;
+			m->rays[m->ray].y_vert_wall = yin;
+			return ;
+		}
+		if (m->map.map[(int)(yin / m->map.tile)][(int)((xin + i) / m->map.tile)]
+		== 'D')
+		{
+			m->rays[m->ray].vert_hit_door = 1;
 			m->rays[m->ray].x_vert_wall = xin;
 			m->rays[m->ray].y_vert_wall = yin;
 			return ;

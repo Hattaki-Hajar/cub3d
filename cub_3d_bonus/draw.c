@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:35:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/16 17:49:33 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/21 19:13:58 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ void	draw_square(int x, int y, t_mlx *m, int color)
 	int	i;
 	int	j;
 	int	size;
-	int	init_color;
 
 	i = x;
-	init_color = color;
 	size = m->map.tile;
 	while (i < size + x)
 	{
@@ -30,7 +28,6 @@ void	draw_square(int x, int y, t_mlx *m, int color)
 			my_mlx_pixel_put(m, i, j, color);
 			j++;
 		}
-		color = init_color;
 		i++;
 	}
 }
@@ -91,7 +88,7 @@ void	draw_map(t_mlx	*m)
 		while (i < m->map.x_elements_nb)
 		{
 			if (i > (m->p.x / m->map.tile) + 3 || j > (m->p.y / m->map.tile) + 3)
-				draw_square(i * size,j* size, m, 0xFFFFFFFF);
+				draw_square(i * size, j * size, m, 0xFFFFFFFF);
 			else
 			{
 				if (m->map.map[j][i] != '0' && m->map.map[j][i] != 'N')

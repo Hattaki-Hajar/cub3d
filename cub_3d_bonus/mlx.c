@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:28:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 00:19:49 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/22 16:08:35 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,16 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 	}
 }
 
-int my_mlx_pixel_get(t_mlx *m, int x, int y, int mode)
+int my_mlx_pixel_get(t_texture *t, int x, int y)
 {
 	char	*dst;
 	int		color;
 
 	
-	color = PURPLE;
-	if (x > m->t[mode].wt || x < 0 || y >= m->t[mode].ht || y < 0)
+	color = 0;
+	if (x > t->wt || x < 0 || y >= t->ht || y < 0)
 		return color;
-	dst = m->t[mode].addr + (y * m->t[mode].line_length
-			+ x * (m->t[mode].bits_per_pixel / 8));
+	dst = t->addr + (y * t->line_length + x * (t->bits_per_pixel / 8));
 	color = *(unsigned int *)dst;
 	return (color);
 }

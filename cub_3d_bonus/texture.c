@@ -6,11 +6,26 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:16:14 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 12:26:34 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/22 17:03:13 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	open_door_frames(t_mlx *m)
+{
+	m->door.frame[0].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
+	m->door.frame[0].path, &m->door.frame[0].wt, &m->door.frame[0].ht);
+	m->door.frame[0].addr = mlx_get_data_addr(m->door.frame[0].xpm_ptr,
+	&m->door.frame[0].bits_per_pixel, &m->door.frame[0].line_length,
+	&m->door.frame[0].endian);
+
+	m->door.frame[1].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
+	m->door.frame[1].path, &m->door.frame[1].wt, &m->door.frame[1].ht);
+	m->door.frame[1].addr = mlx_get_data_addr(m->door.frame[1].xpm_ptr,
+	&m->door.frame[1].bits_per_pixel, &m->door.frame[1].line_length,
+	&m->door.frame[1].endian);
+}
 
 void	open_vertical_textures(t_mlx *m)
 {
@@ -57,23 +72,5 @@ void	open_textures(t_mlx *m)
 	m->t[SOUTH].addr = mlx_get_data_addr(m->t[SOUTH].xpm_ptr,
 	&m->t[SOUTH].bits_per_pixel, &m->t[SOUTH].line_length, &m->t[SOUTH].endian);
 	open_vertical_textures(m);
-}
-
-void	put_texture_to_wall(t_mlx *m, double wall_height, int mode)
-{
-	int	i, j;
-	int	color;
-
-	i = 0;
-	while (i < NB_RAYS)
-	{
-		j = 0;
-		while (j <= wall_height && j <= WIN_HEIGHT)
-		{
-				color = my_mlx_pixel_get(m, i, j, mode);
-				my_mlx_pixel_put(m, i, j, color);
-			j++;
-		}
-		i++;
-	}
+	open_door_frames(m);
 }

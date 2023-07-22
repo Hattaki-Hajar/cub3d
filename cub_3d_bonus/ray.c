@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/06 20:10:38 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/09 13:30:41 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/19 19:18:34 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ void	reset_rays(t_mlx *m)
 		m->rays[m->ray].y_horz_wall = -1;
 		m->rays[m->ray].x_vert_wall = -1;
 		m->rays[m->ray].y_vert_wall = -1;
+		m->rays[m->ray].hit_door = 0;
+		m->rays[m->ray].vert_hit_door = 0;
+		m->rays[m->ray].horz_hit_door = 0;
 	}
 	m->ray = 0;
 }
