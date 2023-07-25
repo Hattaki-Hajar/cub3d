@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:20 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/22 15:46:25 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:57:58 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int	find_color(t_mlx *m, double wall_height, int j, int mode)
 	double	y_pic;
 	int		color;
 
-	if (mode == DOOR)
-		return (0xFFFFFFFF);
 	y_pic = (j / wall_height) * m->t[mode].ht;
 	x_pic = floor(m->rays[m->ray].xwall / m->map.tile) * m->map.tile;
 	x_pic  = ((m->rays[m->ray].xwall - x_pic) / m->map.tile) * m->t[mode].wt;
@@ -38,9 +36,7 @@ int	find_color(t_mlx *m, double wall_height, int j, int mode)
 
 int	choose_texture(t_mlx *m)
 {
-	if (m->rays[m->ray].hit_door)
-		return (DOOR);
-	else if (m->rays[m->ray].hit == HORIZONTAL && m->rays[m->ray].down == -1)
+	if (m->rays[m->ray].hit == HORIZONTAL && m->rays[m->ray].down == -1)
 		return (NORTH);
 	else if (m->rays[m->ray].hit == HORIZONTAL && m->rays[m->ray].down == 1)
 		return (SOUTH);
@@ -97,8 +93,10 @@ void	render_walls(t_mlx *m, double wall_height)
 	{
 		mode = choose_texture(m);
 			color = find_color(m, wall_height, j, mode);
-		if (m->rays[m->ray].hit_door)
+		if (m->rays[m->ray].hit_door == 1)
 			color = find_door_color(m, j, wall_height, 0);
+		if (m->rays[m->ray].hit_door == 2)
+			color = find_door_color(m, j, wall_height, m->door.frame);
 		if (draw_index >= 0 && draw_index <= WIN_HEIGHT
 			&& m->ray >= 0 && m->ray <= WIN_WIDTH)
 			my_mlx_pixel_put(m, m->ray, draw_index, color);

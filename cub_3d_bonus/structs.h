@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/22 17:01:28 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:41:56 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,11 @@ typedef struct s_mouse
 
 typedef struct s_door
 {
-	t_texture	frame[2];
+	t_texture	frames[4];
+	int			frame;
+	// int			x;
+	// int			y;
+	// int			nb;
 }	t_door;
 
 typedef struct mlx
@@ -133,6 +137,7 @@ typedef struct mlx
 	t_mouse		mouse;
 	t_texture	t[4];
 	t_door		door;
+	// int			door_nb;
 }	t_mlx;
 
 #endif

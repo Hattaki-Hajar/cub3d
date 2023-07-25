@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/22 17:02:03 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:00:06 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,18 @@ void	init(t_mlx	*m)
 	m->p.turn = 0;
 	m->p.turn = 1;
 	m->p.speed = 5;
+	m->door.frame = 0;
+	m->door.frame = 0;
 	m->p.rot_speed = 2 * (M_PI / 180);
 	m->t[NORTH].path = "./textures/lain.xpm";
 	m->t[SOUTH].path = "./textures/blue_wall.xpm";
 	m->t[EAST].path = "./textures/north.xpm";
 	m->t[WEST].path = "./textures/shrek.xpm";
-	m->door.frame[0].path = "./textures/poland.xpm";
-	m->door.frame[1].path = "./textures/shrek.xpm";
+	m->door.frames[0].path = "./textures/shrek.xpm";
+	m->door.frames[1].path = "./textures/poland.xpm";
+	m->door.frames[2].path = "./textures/north.xpm";
+	m->door.frames[3].path = "./textures/lain.xpm";
+	// printf("here\n");
 	open_textures(m);
 }
 
@@ -97,6 +102,13 @@ int	main(void)
 	map[4] = strdup("1000000000000000000000001");
 	map[5] = strdup("1111111111111111111111111");
 	m->map.map = map;
+	// m->door[0].x = 4;
+	// m->door[0].y = 2;
+	// m->door[1].x = 11;
+	// m->door[1].y = 3;
+	// m->door[0].nb = 2;
+	// m->door[1].nb = 2;
+	// m->door_nb = 0;
 	m->map.x_elements_nb = 25;
 	m->map.y_elements_nb = 6;
 	m->map.floor_color = 0xFFFFFF;

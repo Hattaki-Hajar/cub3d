@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:16:14 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/22 17:03:13 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:43:30 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,29 @@
 
 void	open_door_frames(t_mlx *m)
 {
-	m->door.frame[0].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
-	m->door.frame[0].path, &m->door.frame[0].wt, &m->door.frame[0].ht);
-	m->door.frame[0].addr = mlx_get_data_addr(m->door.frame[0].xpm_ptr,
-	&m->door.frame[0].bits_per_pixel, &m->door.frame[0].line_length,
-	&m->door.frame[0].endian);
+	m->door.frames[0].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
+	m->door.frames[0].path, &m->door.frames[0].wt, &m->door.frames[0].ht);
+	m->door.frames[0].addr = mlx_get_data_addr(m->door.frames[0].xpm_ptr,
+	&m->door.frames[0].bits_per_pixel, &m->door.frames[0].line_length,
+	&m->door.frames[0].endian);
 
-	m->door.frame[1].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
-	m->door.frame[1].path, &m->door.frame[1].wt, &m->door.frame[1].ht);
-	m->door.frame[1].addr = mlx_get_data_addr(m->door.frame[1].xpm_ptr,
-	&m->door.frame[1].bits_per_pixel, &m->door.frame[1].line_length,
-	&m->door.frame[1].endian);
+	m->door.frames[1].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
+	m->door.frames[1].path, &m->door.frames[1].wt, &m->door.frames[1].ht);
+	m->door.frames[1].addr = mlx_get_data_addr(m->door.frames[1].xpm_ptr,
+	&m->door.frames[1].bits_per_pixel, &m->door.frames[1].line_length,
+	&m->door.frames[1].endian);
+
+	m->door.frames[2].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
+	m->door.frames[2].path, &m->door.frames[2].wt, &m->door.frames[2].ht);
+	m->door.frames[2].addr = mlx_get_data_addr(m->door.frames[2].xpm_ptr,
+	&m->door.frames[2].bits_per_pixel, &m->door.frames[2].line_length,
+	&m->door.frames[2].endian);
+
+	m->door.frames[3].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
+	m->door.frames[3].path, &m->door.frames[3].wt, &m->door.frames[3].ht);
+	m->door.frames[3].addr = mlx_get_data_addr(m->door.frames[3].xpm_ptr,
+	&m->door.frames[3].bits_per_pixel, &m->door.frames[3].line_length,
+	&m->door.frames[3].endian);
 }
 
 void	open_vertical_textures(t_mlx *m)

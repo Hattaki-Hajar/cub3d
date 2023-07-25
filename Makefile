@@ -4,7 +4,7 @@ BSRCS	= $(wildcard ./cub_3d_bonus/*.c)
 
 CC		= cc
 
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -pthread
 
 LFLAGS	=	-lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g
 
