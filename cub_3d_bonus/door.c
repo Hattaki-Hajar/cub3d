@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:16:14 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/25 21:02:03 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:14:54 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,6 @@ void	*close_door(void *p)
 	int		size;
 	
 	m = p;
-	while (m->door.frame >= 0)
-	{
-		sleep(1);
-		m->door.frame--;
-	}
 	size = 0;
 	length = m->map.tile;
 	x = m->p.x + (cos(m->p.angle) * size);
@@ -83,6 +78,11 @@ void	*close_door(void *p)
 		size++;
 		x = m->p.x + (cos(m->p.angle) * size);
 		y = m->p.y + (sin(m->p.angle) * size);
+	}
+	while (m->door.frame >= 0)
+	{
+		sleep(1);
+		m->door.frame--;
 	}
 	if (x >= 0 && x <= WIN_WIDTH && y >= 0 && y <= WIN_HEIGHT)
 		m->map.map[(int)y / length][(int)x / length] = 'D';

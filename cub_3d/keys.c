@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 16:53:00 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/13 22:25:52 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:03:28 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	keys_down(int key, void	*t)
 	m = t;
 	if (key == 53)
 		exit (0);
-	// m->p.speed = 5;
 	if (key == 13 || key == 126)
 	{
 		m->key.w = PRESSED;

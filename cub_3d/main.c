@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/23 17:43:35 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:14:16 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void	renderer(void *t)
 			l * m->map.y_elements_nb);
 	m->addr = mlx_get_data_addr(m->map.map_img, &m->bits_per_pixel,
 			&m->line_length, &m->endian);
-	// draw_map(m);
-	// draw_mini_map(m);
-	// draw_player((m->p.x / m->map.tile) * l, (m->p.y / m->map.tile) * l, m, 2);
 	cast_rays(m);
 	m->img_ptr = mlx_new_image(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	m->addr = mlx_get_data_addr(m->img_ptr, &m->bits_per_pixel,
@@ -52,8 +49,6 @@ void	renderer(void *t)
 	draw_walls(m);
 	mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->img_ptr, 0, 0);
 	mlx_destroy_image(m->mlx_ptr, m->img_ptr);
-	// mlx_put_image_to_window(m->mlx_ptr, m->win_ptr, m->map.map_img, 10, 10);
-	// mlx_destroy_image(m->mlx_ptr, m->map.map_img);
 }
 
 void	init(t_mlx	*m)
@@ -86,11 +81,13 @@ void	init(t_mlx	*m)
 
 int	main(void)
 {
-	t_mlx *m = malloc(sizeof(t_mlx));
+	t_mlx	*m;
+
+	m = malloc(sizeof(t_mlx));
 	m->rays = malloc(NB_RAYS * sizeof(t_ray));
-	char *map[10]= { "1111111111111111111111111",
+	char *map[10] = {"1111111111111111111111111",
 					 "1010001100000100000100001",
-					 " 10N1000001000000011000001",
+					 "10N1000001000000011000001",
 					 "1000011000000000100000101",
 					 "1000000000000000000000001",
 					 "1111111111111111111111111"};
@@ -101,7 +98,7 @@ int	main(void)
 	m->map.sky_color = 0x93CAED;
 	m->mlx_ptr = mlx_init();
 	init(m);
-	m->win_ptr =  mlx_new_window(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
+	m->win_ptr = mlx_new_window(m->mlx_ptr, WIN_WIDTH, WIN_HEIGHT, "cub3d");
 	mlx_hook(m->win_ptr, 17, 0, red_cross, 0);
 	mlx_hook(m->win_ptr, 2, 0, keys_down, m);
 	mlx_loop_hook(m->mlx_ptr, move, m);

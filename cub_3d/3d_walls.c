@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:20 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 12:46:07 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:03:06 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int	find_color(t_mlx *m, double wall_height, int j, int mode)
 
 	y_pic = (j / wall_height) * m->t[mode].ht;
 	x_pic = floor(m->rays[m->ray].xwall / m->map.tile) * m->map.tile;
-	x_pic  = ((m->rays[m->ray].xwall - x_pic) / m->map.tile) * m->t[mode].wt;
+	x_pic = ((m->rays[m->ray].xwall - x_pic) / m->map.tile) * m->t[mode].wt;
 	if (m->rays[m->ray].down == 1)
 		x_pic = m->t[mode].wt - x_pic;
 	if (m->rays[m->ray].hit == VERTICAL)
 	{
 		x_pic = floor(m->rays[m->ray].ywall / m->map.tile) * m->map.tile;
-	 	x_pic  = ((m->rays[m->ray].ywall - x_pic) / m->map.tile) * m->t[mode].wt;
+		x_pic = ((m->rays[m->ray].ywall - x_pic) / m->map.tile) * m->t[mode].wt;
 		if (m->rays[m->ray].right == -1)
 			x_pic = m->t[mode].wt - x_pic;
 	}

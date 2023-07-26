@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/16 15:48:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/25 17:56:10 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:49:57 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,6 @@ int	move(void	*t)
 		right(m);
 	if (m->key.left == PRESSED || m->key.right == PRESSED)
 		m->p.angle += m->p.turn * m->p.rot_speed;
-	if (m->key.space == PRESSED)
-		door(m);
 	renderer(m);
 	return (0);
 }

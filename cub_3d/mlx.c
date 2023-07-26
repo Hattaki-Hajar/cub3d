@@ -6,11 +6,11 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 15:28:04 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/14 14:56:32 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/26 23:05:18 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 {
@@ -24,14 +24,14 @@ void	my_mlx_pixel_put(t_mlx *data, int x, int y, int color)
 	}
 }
 
-int my_mlx_pixel_get(t_mlx *m, int x, int y, int mode)
+int	my_mlx_pixel_get(t_mlx *m, int x, int y, int mode)
 {
 	char	*dst;
 	int		color;
 
 	color = PURPLE;
 	if (x > m->t[mode].wt || x < 0 || y >= m->t[mode].ht || y < 0)
-		return color;
+		return (color);
 	dst = m->t[mode].addr + (y * m->t[mode].line_length
 			+ x * (m->t[mode].bits_per_pixel / 8));
 	color = *(unsigned int *)dst;
