@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 15:35:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/28 18:57:33 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:22:59 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	draw_map2(int j, t_mlx *m, int size)
 
 void	draw_map(t_mlx *m)
 {
-	int	i;
 	int	j;
 	int	size;
 

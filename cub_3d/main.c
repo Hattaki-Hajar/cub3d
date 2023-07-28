@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:48:13 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/27 15:41:16 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:44:16 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,7 @@ void	init(t_mlx	*m)
 	m->key.d = 0;
 	m->key.left = 0;
 	m->key.right = 0;
-	if (calc_length_x(m->map.x_elements_nb)
-		< calc_length_y(m->map.y_elements_nb))
-		m->map.tile = calc_length_x(m->map.x_elements_nb);
-	else
-		m->map.tile = calc_length_y(m->map.y_elements_nb);
+	m->map.tile = 50;
 	m->p.x = 2 * m->map.tile + (m->map.tile / 2);
 	m->p.y = 2 * m->map.tile + (m->map.tile / 2);
 	m->p.angle = 270 * (M_PI / 180);

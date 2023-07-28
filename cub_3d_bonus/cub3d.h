@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:38:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/28 17:49:15 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:24:32 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	init(t_mlx	*m);
 /*--------------rendering-------------*/
 void	cast_rays(t_mlx *m);
 void	renderer(void *t);
-// void	open_weapon_frame(t_mlx *m);
 
 /*---------------hooks---------------*/
 int		keys_down(int key, void	*t);
@@ -66,6 +65,7 @@ int		my_mlx_pixel_get(t_texture *t, int x, int y);
 /*--------------textures--------------*/
 void	put_texture_to_wall(t_mlx *m, double wall_height, int mode);
 void	open_textures(t_mlx *m);
+int		choose_texture(t_mlx *m);
 
 /*---------------mouse----------------*/
 int		mouse(int x, int y, void *p);

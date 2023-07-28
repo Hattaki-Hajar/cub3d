@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 18:52:20 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/28 18:52:21 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:23:43 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,6 @@ int	find_color(t_mlx *m, double wall_height, int j, int mode)
 	}
 	color = my_mlx_pixel_get(&m->t[mode], x_pic, y_pic);
 	return (color);
-}
-
-int	choose_texture(t_mlx *m)
-{
-	if (m->rays[m->ray].hit == HORIZONTAL && m->rays[m->ray].down == -1)
-		return (NORTH);
-	else if (m->rays[m->ray].hit == HORIZONTAL && m->rays[m->ray].down == 1)
-		return (SOUTH);
-	else if (m->rays[m->ray].hit == VERTICAL && m->rays[m->ray].right == -1)
-		return (WEST);
-	else if (m->rays[m->ray].hit == VERTICAL && m->rays[m->ray].right == 1)
-		return (EAST);
-	return (-1);
 }
 
 void	draw_floor_sky(t_mlx *m, int colomn, int height, int mode)
