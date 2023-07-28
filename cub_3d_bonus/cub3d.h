@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:38:44 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/22 18:38:09 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:49:15 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void	define_wall_distance(t_mlx *m, double angle);
 void	horizontal_wall_inter(t_mlx *m, double angle);
 void	vertical_wall_inter(t_mlx *m, double angle);
 void	calc_wall_distance(t_mlx *m, double angle, double x, double y);
+void	init(t_mlx	*m);
 
 /*--------------rendering-------------*/
 void	cast_rays(t_mlx *m);
 void	renderer(void *t);
+// void	open_weapon_frame(t_mlx *m);
 
 /*---------------hooks---------------*/
 int		keys_down(int key, void	*t);
@@ -71,5 +73,6 @@ int		mouse(int x, int y, void *p);
 /*---------------door-----------------*/
 void	door(t_mlx *m);
 int		find_door_color(t_mlx *m, int index, double wall_height, int frame);
+void	weapon(t_mlx *m);
 
 #endif

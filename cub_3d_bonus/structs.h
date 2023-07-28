@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/25 20:41:56 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:10:50 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,16 @@ typedef struct s_door
 {
 	t_texture	frames[4];
 	int			frame;
-	// int			x;
-	// int			y;
-	// int			nb;
 }	t_door;
+
+typedef	struct s_weapon
+{
+	void		*img_ptr[5];
+	// img_ptr = t[frame].xpm_ptr;
+	t_texture	t[5];
+	int			frame;
+	int			nb_frame;
+}	t_weapon;
 
 typedef struct mlx
 {
@@ -137,7 +143,7 @@ typedef struct mlx
 	t_mouse		mouse;
 	t_texture	t[4];
 	t_door		door;
-	// int			door_nb;
+	t_weapon	weapon;
 }	t_mlx;
 
 #endif

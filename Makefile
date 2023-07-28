@@ -8,9 +8,9 @@ CFLAGS	= -Wall -Wextra -Werror -pthread
 
 LFLAGS	=	-lmlx -framework OpenGL -framework AppKit #-fsanitize=address -g
 
-NAME	= Cub3D
+NAME	= cub3D
 
-BNAME	= Cub3D_bonus
+BNAME	= cub3D_bonus
 
 MLX_LIB = ./mlx/libmlx.a
 
