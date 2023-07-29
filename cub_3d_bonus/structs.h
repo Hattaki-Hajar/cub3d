@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 16:51:37 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/28 16:10:50 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:46:20 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,14 +113,13 @@ typedef struct s_mouse
 
 typedef struct s_door
 {
-	t_texture	frames[4];
+	t_texture	frames[12];
 	int			frame;
 }	t_door;
 
 typedef	struct s_weapon
 {
 	void		*img_ptr[5];
-	// img_ptr = t[frame].xpm_ptr;
 	t_texture	t[5];
 	int			frame;
 	int			nb_frame;

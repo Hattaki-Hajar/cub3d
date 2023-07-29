@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 15:16:14 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/28 21:23:56 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:41:28 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ void	open_door_frames(t_mlx *m)
 	int	i;
 
 	i = 0;
-	m->door.frames[0].path = "./textures/shrek.xpm";
-	m->door.frames[1].path = "./textures/poland.xpm";
-	m->door.frames[2].path = "./textures/north.xpm";
-	m->door.frames[3].path = "./textures/lain.xpm";
-	while (i < 4)
+	while (i < 12)
 	{
 		m->door.frames[i].xpm_ptr = mlx_xpm_file_to_image(m->mlx_ptr,
 				m->door.frames[i].path, &m->door.frames[i].wt,

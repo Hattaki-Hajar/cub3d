@@ -6,7 +6,7 @@
 /*   By: hhattaki <hhattaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 15:16:14 by hhattaki          #+#    #+#             */
-/*   Updated: 2023/07/28 18:54:48 by hhattaki         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:35:05 by hhattaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	*open_door(void *p)
 		&& m->rays[NB_RAYS / 2].hit == VERTICAL)
 		x--;
 	m->map.map[(int)y][(int)x] = 'o';
-	while (m->door.frame < 3)
+	while (m->door.frame < 12)
 	{
-		sleep(1);
+		usleep(200000);
 		m->door.frame++;
 	}
 	m->door.frame = 0;
@@ -80,11 +80,11 @@ void	*close_door(void *p)
 		x = m->p.x + (cos(m->p.angle) * size);
 		y = m->p.y + (sin(m->p.angle) * size);
 	}
-	while (m->door.frame >= 0)
-	{
-		sleep(1);
-		m->door.frame--;
-	}
+	// while (m->door.frame >= 0)
+	// {
+	// 	usleep(300000);
+	// 	m->door.frame--;
+	// }
 	if (x >= 0 && x <= WIN_WIDTH && y >= 0 && y <= WIN_HEIGHT)
 		m->map.map[(int)y / m->map.tile][(int)x / m->map.tile] = 'D';
 	return (0);
@@ -100,7 +100,7 @@ void	door(t_mlx *m)
 		pthread_create(door, 0, open_door, m);
 		pthread_detach(*door);
 	}
-	else
+	else if (m->map.map[(int)m->p.y / m->map.tile][(int)m->p.x / m->map.tile] != 'd')
 	{
 		pthread_create(door, 0, close_door, m);
 		pthread_detach(*door);
